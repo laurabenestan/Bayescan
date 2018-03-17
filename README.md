@@ -1,5 +1,5 @@
 # Genome-scans
-Using Bayescan progra and visualizing results in R
+Using Bayescan program and visualizing results in R
 
 ### Download libraries
 ```{r}
