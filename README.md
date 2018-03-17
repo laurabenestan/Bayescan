@@ -101,7 +101,7 @@ graph_1+geom_point(aes(fill=fst_loci2$SELECTION), pch=21, size=4)+
   theme(axis.text.x=element_text(colour="black",size=12))+ 
   theme(panel.border = element_rect(colour="black", fill=NA, size=3),  
         axis.title=element_text(size=18,colour="black",family="Helvetica",face="bold")) 
-   ```
+```
    
 ### Save the file in a pdf format
 ```{r}
