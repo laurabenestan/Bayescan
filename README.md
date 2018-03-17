@@ -22,7 +22,7 @@ SNPb=read.table("list-13688snps.txt",header=FALSE)
 ```{r}
 bayescan=cbind(SNPb, bayescan) 
 colnames(bayescan)=c("SNP","PROB","LOG_PO","Q_VALUE","ALPHA","FST") 
-write.table(bayescan, "24603snps-bayescan-results.txt", quote=FALSE, sep="\t", row.names=FALSE) 
+write.table(bayescan, "13688snps-bayescan-results.txt", quote=FALSE, sep="\t", row.names=FALSE) 
 ```
 
 ### Edit the data
