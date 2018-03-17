@@ -7,29 +7,39 @@ library(ggplot2).
 ### Download data
 
 * **Open the bayescan output file with the "_fst.txt" extension**. 
+```{r}
 bayescan=read.table("bayescan-13688snps-562ind.g_fst.txt"). 
+```
 
-* **Download the list of SNPs**. 
+* **Download the list of SNPs**.
+```{r}
 SNPb=read.table("list-13688snps.txt",header=FALSE). 
+```
 
 * **Merge the name of the outliers with the results from bayescan**. 
+```{r}
 bayescan=cbind(SNPb, bayescan). 
 colnames(bayescan)=c("SNP","PROB","LOG_PO","Q_VALUE","ALPHA","FST"). 
 write.table(bayescan, "24603snps-bayescan-results.txt", quote=FALSE, sep="\t", row.names=FALSE). 
+```
 
 ### Edit the data
 
 * **Change the value of the Q_VALUE column: 0 == 0.0001**.  
+```{r}
 attach(bayescan). 
 class(bayescan$Q_VALUE)  
 bayescan$Q_VALUE <- as.numeric(bayescan$Q_VALUE). 
 bayescan[bayescan$Q_VALUE<=0.0001,"Q_VALUE"]=0.0001. 
+```
 
 * **Round the values**.  
+```{r}
 bayescan$LOG_PO <- (round(bayescan$LOG_PO, 4)). 
 bayescan$Q_VALUE <- (round(bayescan$Q_VALUE, 4)). 
 bayescan$ALPHA <- (round(bayescan$ALPHA, 4)). 
 bayescan$FST <- (round(bayescan$FST, 6)). 
+```
 
 * **Add a column for the type of selection grouping based on a Q-VALUE < 0.05 (you can also choose a Q-VALUE < 0.01)**  
 bayescan$SELECTION <- ifelse(bayescan$ALPHA>=0&bayescan$Q_VALUE<=0.05,"diversifying",ifelse(bayescan$ALPHA>=0&bayescan$Q_VALUE>0.05,"neutral","balancing")). 
