@@ -131,3 +131,4 @@ Save the file in a pdf format
 ggsave("bayescan_13688_562ind.pdf", dpi=600, width=5, height=5) 
 dev.off()
 ```
+![Bayescan_Benestan_2016](Bayescan_Benestan_2016.png)
