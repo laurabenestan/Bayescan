@@ -1,4 +1,10 @@
-# Bayescan
+# Codes for the paper : "Seascape genomics provides evidence for thermal adaptation and current‐mediated population structure in American lobster (Homarus americanus)"
+
+#### Laura Benestan
+
+Québec, 2016
+
+Published in Molecular Ecology, 2016, see [Benestan et al](https://onlinelibrary.wiley.com/doi/full/10.1111/mec.13811)
 
 ## Description
 
