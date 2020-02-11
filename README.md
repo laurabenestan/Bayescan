@@ -48,9 +48,14 @@ Open the **bayescan output file with the "_fst.txt" extension**.
 bayescan=read.table("bayescan-13688snps-562ind.g_fst.txt") 
 ```
 
-**Download the list of SNPs**.
+Download the **list of SNPs** in the right order. The .este format has SNPs in the same order than the vcf used to produce the .geste format. Tehrefore, you can use this command in bash to extract the third column containing the ID info of each SNPs in your vcf:
 ```{r}
-SNPb=read.table("list-13688snps.txt",header=FALSE) 
+ grep -v "#" 13688snps-562ind.recode.vcf | cut -f 3 > 13688snps-562ind_id_vcf.txt
+```
+
+Then 
+```{r}
+SNPb=read.table("13688snps-562ind_id_vcf.txt",header=FALSE) 
 ```
 
 Merge the name of the outliers with the results from bayescan. 
