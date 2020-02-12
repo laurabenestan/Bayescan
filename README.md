@@ -123,10 +123,10 @@ y_title="Fst"
 
 Make the ggplot graph. 
 ```{r}
-graph_1<-ggplot(fst_loci2,aes(x=LOG10_Q,y=Fst_1, label=fst_loci2$SNP)) 
-graph_1+geom_point(aes(fill=fst_loci2$SELECTION), pch=21, size=4)+ 
+graph_1<-ggplot(bayescan,aes(x=LOG10_Q,y=FST, label=bayescan$POS)) 
+graph_1+geom_point(aes(fill=bayescan$SELECTION), pch=21, size=2)+ 
   #geom_text()+ 
-  scale_fill_manual(name="Selection",values=c("white","darkgrey","white"))+ 
+  scale_fill_manual(name="Selection",values=c("white","red","orange"))+ 
   labs(x=x_title)+ 
   labs(y=y_title)+ 
   theme(axis.title=element_text(size=12, family="Helvetica",face="bold"), legend.position="none")+ 
@@ -134,7 +134,8 @@ graph_1+geom_point(aes(fill=fst_loci2$SELECTION), pch=21, size=4)+
   theme(axis.text.y=element_text(colour="black",size=12))+ 
   theme(axis.text.x=element_text(colour="black",size=12))+ 
   theme(panel.border = element_rect(colour="black", fill=NA, size=3),  
-        axis.title=element_text(size=18,colour="black",family="Helvetica",face="bold")) 
+        axis.title=element_text(size=18,colour="black",family="Helvetica",face="bold")) +
+        theme_classic()
 ```
    
 Save the file in a pdf format
@@ -143,3 +144,15 @@ ggsave("bayescan_13688_562ind.pdf", dpi=600, width=5, height=5)
 dev.off()
 ```
 ![Bayescan_Benestan_2016](Bayescan_Benestan_2016.png)
+
+
+You can also simply use the function already available in Bayescan.
+First load the function in R.
+```{r}
+source("plot_R.r")
+```
+
+Make a nice graph using this `plot_bayescan` function.
+```{r}
+plot_bayescan("sharks.geste_fst.txt")
+```
