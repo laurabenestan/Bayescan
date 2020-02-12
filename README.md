@@ -21,7 +21,18 @@ This number would be too high when considering a datasets up to 10,000 markers.
 
 In the context multiple testing such as large number of markers (up to 10,000), run BAYESCAN with appropriate parameter as recommended in [Whitlock and Lotterhos, 2015](https://www.jstor.org/stable/10.1086/682949?seq=1), you should consider the number of loci in your dataset.
 
-## 1. Run Bayescan in a terminal
+## 1. Prepare dataset in the .geste format
+
+Most of the Next Generation Sequencing (NGS) project generate a vcf or a plink file after aligning the sequences in [STACKS](http://catchenlab.life.illinois.edu/stacks/) for instance. 
+Convert the .vcf file to a .geste dataset with the function `genomic_converter` available in the elegant `radiator`package in R (see [Thierry Gosselin github page](https://github.com/thierrygosselin) for details).
+
+```{r}
+lobster <- genomic_converter(
+  data = "13688snps-562ind.recode.vcf", strata = "population_map_lobster.txt",
+  output = c("bayescan"), filename="13688snps-562ind.geste")
+```
+
+## 2. Run Bayescan in a terminal
 
 **Preparing .geste file**
 
@@ -34,7 +45,7 @@ In bash, use the following command to **run Baeyscan**
 ./BayeScan2.1_macos64bits -n 5000 -burn 50000 -pr_odds 10000
 ```
 
-## 2. Use R to analyse Bayescan results
+## 3. Use R to analyse Bayescan results
 
 Using R to visualize the outputs
 First, **download libraries**
@@ -107,7 +118,7 @@ write.table(balancing, "balancing.txt", row.names=F, quote=F)
 write.table(positive, "positive.txt", row.names=F, quote=F) 
 ```
 
-## 3. Use R to visualize Bayescan results
+## 4. Use R to visualize Bayescan results
 
 **Transformation Log of the Q value in order to create te ggplot graph**. 
 ```{r}
