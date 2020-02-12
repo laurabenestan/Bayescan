@@ -1,4 +1,4 @@
-# Codes for the paper : "Seascape genomics provides evidence for thermal adaptation and current‐mediated population structure in American lobster (Homarus americanus)"
+# Codes for the paper : "Seascape genomics provides evidence for thermal adaptation and current‐mediated population structure in American lobster (*Homarus americanus*)"
 
 #### Laura Benestan
 
