@@ -154,5 +154,5 @@ source("plot_R.r")
 
 Make a nice graph using this `plot_bayescan` function.
 ```{r}
-plot_bayescan("sharks.geste_fst.txt")
+plot_bayescan("bayescan-13688snps-562ind.g_fst.txt")
 ```
