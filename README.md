@@ -19,7 +19,7 @@ This program can define three categories of putative candidate loci:
 For each locus, BayeScan calculates a posterior probability (Posterior odds) - available through the parameter `pr_odds` - for the model including selection. These posterior probabilities indicate how more likely the model with selection is compared to the neutral model. For instance a pr_odds of 10 means that there is 1/10 probability for a marker to be under selection.
 This number would be too high when considering a datasets up to 10,000 markers.
 
-In the context multiple testing such as large number of markers (up to 10,000), run BAYESCAN with appropriate parameter as recommended in [Whitlock and Lotterhos, 2015](https://www.jstor.org/stable/10.1086/682949?seq=1), you should consider the number of loci in your dataset.
+In the context multiple testing such as large number of markers (up to 10,000), run BAYESCAN with appropriate parameter as recommended in [Whitlock and Lotterhos, 2015](https://www.jstor.org/stable/10.1086/682949?seq=1), you should consider the number of loci in your dataset. You can also consult the [bayescan exercice](https://evomics.org/learning/population-and-speciation-genomics/2016-population-and-speciation-genomics/bayescan-exercise/) to learn more about how to interpret Bayescan files and outputs.
 
 ## 1. Prepare dataset in the .geste format
 
