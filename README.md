@@ -8,7 +8,8 @@ Published in Molecular Ecology, 2016, see [Benestan et al](https://onlinelibrary
 
 ## Description
 
-[Bayescan](http://cmpg.unibe.ch/software/BayeScan/) is a program that aim to identifying **putative candidate loci under natural selection** from genetic data, using differences in allele frequencies between populations. 
+[Bayescan](http://cmpg.unibe.ch/software/BayeScan/) is a command-line program that aim to identifying **putative candidate loci under natural selection** from genetic data, using differences in allele frequencies between populations. 
+
 BayeScan is based on the [Multinomial-Dirichlet model](https://en.wikipedia.org/wiki/Dirichlet-multinomial_distribution).
 
 This program can define three categories of putative candidate loci:
@@ -17,14 +18,17 @@ This program can define three categories of putative candidate loci:
 - under neutrality
 
 For each locus, BayeScan calculates a posterior probability (Posterior odds) - available through the parameter `pr_odds` - for the model including selection. These posterior probabilities indicate how more likely the model with selection is compared to the neutral model. For instance a pr_odds of 10 means that there is 1/10 probability for a marker to be under selection.
-This number would be too high when considering a datasets up to 10,000 markers.
+This number would be too high when considering a dataset with up to 10,000 markers.
 
-In the context multiple testing such as large number of markers (up to 10,000), run BAYESCAN with appropriate parameter as recommended in [Whitlock and Lotterhos, 2015](https://www.jstor.org/stable/10.1086/682949?seq=1), you should consider the number of loci in your dataset. You can also consult the [bayescan exercice](https://evomics.org/learning/population-and-speciation-genomics/2016-population-and-speciation-genomics/bayescan-exercise/) to learn more about how to interpret Bayescan files and outputs.
+In the context multiple testing such as large number of markers (up to 10,000), run BAYESCAN with appropriate parameter as recommended in [Whitlock and Lotterhos, 2015](https://www.jstor.org/stable/10.1086/682949?seq=1).
+To do so, you should consider the number of loci in your dataset. You can also consult the [bayescan exercice](https://evomics.org/learning/population-and-speciation-genomics/2016-population-and-speciation-genomics/bayescan-exercise/) to learn more about how to interpret Bayescan files and outputs.
 
 ## 1. Prepare dataset in the .geste format
 
-Most of the Next Generation Sequencing (NGS) project generate a vcf or a plink file after aligning the sequences in [STACKS](http://catchenlab.life.illinois.edu/stacks/) for instance. 
-Convert the .vcf file to a .geste dataset with the function `genomic_converter` available in the elegant `radiator`package in R (see [Thierry Gosselin github page](https://github.com/thierrygosselin) for details).
+Most of the Next Generation Sequencing (NGS) projects generate a VCF (.vcf) or a PLINK file (.tped and .tfam) after aligning the sequences in [STACKS](http://catchenlab.life.illinois.edu/stacks/). 
+
+The first step is to prepare files in an appropriate .geste format for BAYESCAN.
+Convert the .vcf file to a .geste dataset with the function `genomic_converter` available in the elegant `radiator`package in R (see [Thierry Gosselin github page](https://github.com/thierrygosselin) for more details).
 
 ```{r}
 lobster <- genomic_converter(
@@ -36,16 +40,20 @@ lobster <- genomic_converter(
 
 **Preparing .geste file**
 
-BayeScan uses its own input file formats that have the extension . geste.
+BayeScan uses its own input file formats that have the extension .geste.
 To transform the vcf file (or other formats such as genepop and structure) in a .geste file, you can easily use [PGDSpider2](http://www.cmpg.unibe.ch/software/PGDSpider/)
 
 
-In bash, use the following command to **run Baeyscan**
+To **run Bayescan** in bash, use the following command:
 ```{r} = "bash"
 ./BayeScan2.1_macos64bits -n 5000 -burn 50000 -pr_odds 10000
 ```
+By running Bayescan, you should check three output files:
+*Verif.txt: Use this file to verify that BayeScan read the input files properly
+*.sel: Record the parameters estimated by the model 
+*fst.txt: Use to identify outliers
 
-## 3. Use R to analyse Bayescan results
+## 3. Use R to identify outliers from Bayescan analyses
 
 Using R to visualize the outputs
 First, **download libraries**
@@ -53,11 +61,12 @@ First, **download libraries**
 library(ggplot2) 
 ```
 
-Download Bayescan outputs.
 Open the **bayescan output file with the "_fst.txt" extension**. 
 ```{r}
 bayescan=read.table("bayescan-13688snps-562ind.g_fst.txt") 
 ```
+
+The first column of the `bayescan` object is a SNP ID. The next three (prob, log10(P0), and qval) are related to the test of local adaptation considering the logarithm of the posterior odds - log10(PO) - and the q-value for the model with selection. The fifth column gives the size of the locus-specific effect (alpha parameter). The last one provides the locus-specific FST averaged over all populations.
 
 Download the **list of SNPs** in the right order. The .este format has SNPs in the same order than the vcf used to produce the .geste format. Tehrefore, you can use this command in bash to extract the third column containing the ID info of each SNPs in your vcf:
 ```{r}
